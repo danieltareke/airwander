@@ -22,7 +22,7 @@ defmodule AirwanderWeb.InputLive do
       </select>
     
     
-    <div style="display: flex;justify-content: space-evenly;">
+    <div style="display: flex;justify-content: center;">
     
       <input type="text" name="input1" value="<%= @input1 %>" >
       <input type="text" name="input2" value="<%= @input2 %>" >
@@ -83,15 +83,29 @@ defmodule AirwanderWeb.InputLive do
      )}
   end
 
-  def handle_event("input_changed", %{"trip_type" => "Round-Trip", "input1" => value}, socket) do
-    {:noreply,
-     assign(socket,
-       selected_trip: "Round-Trip",
-       input1: value,
-       input2: "Input #2",
-       input3: value,
-       input4: nil
-     )}
+  def handle_event("input_changed", %{"trip_type" => "Round-Trip", "input1" => value1}, socket) do
+    socket =
+      case socket.assigns.selected_trip do
+        "Round-Trip" ->
+          assign(socket,
+            selected_trip: "Round-Trip",
+            input1: value1,
+            input2: "Input #2",
+            input3: value1,
+            input4: nil
+          )
+
+        _ ->
+          assign(socket,
+            selected_trip: "Round-Trip",
+            input1: "Input #1",
+            input2: "Input #2",
+            input3: "Input #3",
+            input4: nil
+          )
+      end
+
+    {:noreply, socket}
   end
 
   def handle_event("input_changed", %{"trip_type" => "Multi-City"}, socket) do

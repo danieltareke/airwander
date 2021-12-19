@@ -455,6 +455,7 @@ input,
 select,
 textarea {
   margin-bottom: 1.5rem;
+  margin-right: 1.8rem;
 }
 blockquote,
 dl,
